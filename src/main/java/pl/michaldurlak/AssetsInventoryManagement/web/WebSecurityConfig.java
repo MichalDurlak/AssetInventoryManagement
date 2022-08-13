@@ -40,11 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .antMatchers("/admin").hasRole(String.valueOf(UsersRoles.ADMIN))
-                .antMatchers("/read").hasRole(String.valueOf(UsersRoles.READ))
-                .antMatchers("/readwrite").hasRole(String.valueOf(UsersRoles.WRITE_READ))
+                .antMatchers("/").authenticated()
+                .antMatchers("/user/list").hasRole(String.valueOf(UsersRoles.ADMIN))
+                .antMatchers("/user/add").hasRole(String.valueOf(UsersRoles.ADMIN))
                 .and()
-                .formLogin().permitAll();
+                .formLogin().permitAll()
+                .and()
+                .csrf().disable();
     }
 
     @Bean
@@ -54,11 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @EventListener(ApplicationReadyEvent.class)
     public void createDefaultUsers(){
-        UserModel userAdmin = new UserModel("admin", passwordEncoder().encode("admin"));
-        userAdmin.setUserRole(UsersRoles.ADMIN);
-        UserModel userRead = new UserModel("read", passwordEncoder().encode("read"));
-        UserModel userReadWrite = new UserModel("readwrite", passwordEncoder().encode("readwrite"));
-        userReadWrite.setUserRole(UsersRoles.WRITE_READ);
+        UserModel userAdmin = new UserModel("admin", passwordEncoder().encode("admin"),UsersRoles.ADMIN);
+        UserModel userRead = new UserModel("read", passwordEncoder().encode("read"),UsersRoles.READ);
+        UserModel userReadWrite = new UserModel("readwrite", passwordEncoder().encode("readwrite"),UsersRoles.WRITE_READ);
         userRepo.save(userAdmin);
         userRepo.save(userRead);
         userRepo.save(userReadWrite);
