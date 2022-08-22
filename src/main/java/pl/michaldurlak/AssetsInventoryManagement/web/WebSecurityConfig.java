@@ -12,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
+import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserDetailsServiceImpl;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserModel;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserRepo;
@@ -25,11 +27,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsService;
     private UserRepo userRepo;
+    private AssetRepo assetRepo;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, UserRepo userRepo) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, UserRepo userRepo, AssetRepo assetRepo) {
         this.userDetailsService = userDetailsService;
         this.userRepo = userRepo;
+        this.assetRepo = assetRepo;
     }
 
     @Override
@@ -63,5 +67,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         userRepo.save(userRead);
         userRepo.save(userReadWrite);
         System.out.println("--------> UZYTKOWNICY ZALOZENI <--------------");
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void createRandomAssets(){
+        AssetModel assetModel1 = new AssetModel("Only Name");
+        AssetModel assetModel2 = new AssetModel("Name","Description");
+        AssetModel assetModel3 = new AssetModel("Name","Description","Brand","Model");
+
+        assetRepo.save(assetModel1);
+        assetRepo.save(assetModel2);
+        assetRepo.save(assetModel3);
+
+        System.out.println("-------> UTWORZONO ASSETY <----------");
     }
 }

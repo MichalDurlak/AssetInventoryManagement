@@ -21,6 +21,7 @@ public class AssetModel {
     private String name;
     private String description;
     private String qrCode;
+    private String brand;
     private String model;
     private int dateOfProduction;
     private String endDateOfWarranty;
@@ -29,11 +30,24 @@ public class AssetModel {
     private String urlToImage;
 
 
+
     public AssetModel() {
     }
 
     public AssetModel(String name) {
         this.name = name;
+    }
+
+    public AssetModel(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public AssetModel(String name, String description, String brand, String model) {
+        this.name = name;
+        this.description = description;
+        this.brand = brand;
+        this.model = model;
     }
 
 

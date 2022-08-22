@@ -9,5 +9,10 @@ public class AssetDetailsServiceImpl {
     @Autowired
     private AssetRepo assetRepo;
 
+    public AssetDetailsServiceImpl(AssetRepo assetRepo){
+        this.assetRepo = assetRepo;
+    }
+
+
 
 }

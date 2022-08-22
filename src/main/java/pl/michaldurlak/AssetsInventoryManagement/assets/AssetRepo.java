@@ -7,5 +7,6 @@ import pl.michaldurlak.AssetsInventoryManagement.users.UserModel;
 @Repository
 public interface AssetRepo extends JpaRepository<AssetModel,Long> {
 
+    AssetModel findByName(String name);
 
 }
