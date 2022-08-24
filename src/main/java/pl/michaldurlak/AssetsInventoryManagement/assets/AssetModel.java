@@ -23,7 +23,7 @@ public class AssetModel {
     private String qrCode;
     private String brand;
     private String model;
-    private int dateOfProduction;
+    private String dateOfProduction;
     private String endDateOfWarranty;
     private int quantityInStock;
     private int currentlyInStock;
