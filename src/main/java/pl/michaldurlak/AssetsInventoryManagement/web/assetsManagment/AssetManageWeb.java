@@ -31,6 +31,8 @@ public class AssetManageWeb extends VerticalLayout
     public void setParameter(BeforeEvent event,
                              @OptionalParameter String id) {
 
+        //remove layout
+        removeAll();
 
         if (id == null || id.length() == 0) {
             getBlankAssetManageWeb();
@@ -45,6 +47,9 @@ public class AssetManageWeb extends VerticalLayout
     }
 
     public void getBlankAssetManageWeb(){
+        //remove layout
+        removeAll();
+
         TextField textFieldId = new TextField("Asset's id");
         Button buttonSearch = new Button("Search for id");
 
@@ -62,23 +67,12 @@ public class AssetManageWeb extends VerticalLayout
         //remove layout
         removeAll();
 
-        //tabel
-        Grid<AssetModel> gridAsset = new Grid<>(AssetModel.class, false);
-        gridAsset.addColumn(AssetModel::getId).setHeader("Product ID");
-        gridAsset.addColumn(AssetModel::getName).setHeader("Name");
-        gridAsset.addColumn(AssetModel::getDescription).setHeader("Description");
-        gridAsset.addColumn(AssetModel::getBrand).setHeader("Brand");
-        gridAsset.addColumn(AssetModel::getModel).setHeader("Model");
-        gridAsset.addColumn(AssetModel::getDateOfProduction).setHeader("Date Of Production");
-        gridAsset.addColumn(AssetModel::getEndDateOfWarranty).setHeader("Last day of warranty");
-
         Optional<AssetModel> assets = assetRepo.findById(id);
-        gridAsset.setItems(assets.get());
 
         // ID
         TextField textFieldID = new TextField();
         textFieldID.setLabel("ID");
-        textFieldID.setValue(String.valueOf(assets.get().getName()));
+        textFieldID.setValue(String.valueOf(assets.get().getId()));
         textFieldID.setReadOnly(true);
         add(textFieldID);
 
@@ -124,8 +118,7 @@ public class AssetManageWeb extends VerticalLayout
         textFieldEndDateOfWarranty.setReadOnly(true);
         add(textFieldEndDateOfWarranty);
 
-
-//        add(gridAsset);
+        
     }
 
 }

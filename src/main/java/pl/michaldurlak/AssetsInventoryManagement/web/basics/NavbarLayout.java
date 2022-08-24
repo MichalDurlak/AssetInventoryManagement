@@ -21,6 +21,7 @@ import com.vaadin.flow.server.VaadinSession;
 import pl.michaldurlak.AssetsInventoryManagement.web.MainWeb;
 import pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment.AssetAddWeb;
 import pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment.AssetListWeb;
+import pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment.AssetManageWeb;
 import pl.michaldurlak.AssetsInventoryManagement.web.usersManagment.UserAddWeb;
 import pl.michaldurlak.AssetsInventoryManagement.web.usersManagment.UserListWeb;
 
@@ -74,6 +75,9 @@ public class NavbarLayout extends AppLayout {
         //Asset add
         RouterLink routerAssetAdd = new RouterLink("Add new asset", AssetAddWeb.class);
         tabsAll.add(routerAssetAdd);
+        //Search for specific asset
+        RouterLink routerAssetSearch = new RouterLink("Search for asset", AssetManageWeb.class);
+        tabsAll.add(routerAssetSearch);
 
 
 //STOP ASSET SECTION
