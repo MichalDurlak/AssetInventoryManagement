@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Route(value = "asset" , layout = NavbarLayout.class)
 @PageTitle("Asset info")
-public class AssetManageWeb extends Div
+public class AssetManageWeb extends VerticalLayout
         implements HasUrlParameter<String> {
 
 
@@ -75,7 +75,57 @@ public class AssetManageWeb extends Div
         Optional<AssetModel> assets = assetRepo.findById(id);
         gridAsset.setItems(assets.get());
 
-        add(gridAsset);
+        // ID
+        TextField textFieldID = new TextField();
+        textFieldID.setLabel("ID");
+        textFieldID.setValue(String.valueOf(assets.get().getName()));
+        textFieldID.setReadOnly(true);
+        add(textFieldID);
+
+        // NAME
+        TextField textFieldName = new TextField();
+        textFieldName.setLabel("Name");
+        textFieldName.setValue(String.valueOf(assets.get().getName()));
+        textFieldName.setReadOnly(true);
+        add(textFieldName);
+
+        // DESCRIPTION
+        TextField textFieldDescription = new TextField();
+        textFieldDescription.setLabel("Description");
+        textFieldDescription.setValue(String.valueOf(assets.get().getDescription()));
+        textFieldDescription.setReadOnly(true);
+        add(textFieldDescription);
+
+        // BRAND
+        TextField textFieldBrand = new TextField();
+        textFieldBrand.setLabel("Brand");
+        textFieldBrand.setValue(String.valueOf(assets.get().getBrand()));
+        textFieldBrand.setReadOnly(true);
+        add(textFieldBrand);
+
+        // MODEL
+        TextField textFieldModel = new TextField();
+        textFieldModel.setLabel("Model");
+        textFieldModel.setValue(String.valueOf(assets.get().getModel()));
+        textFieldModel.setReadOnly(true);
+        add(textFieldModel);
+
+        // DATE OF PRODUCTION
+        TextField textFieldDateOfProduction = new TextField();
+        textFieldDateOfProduction.setLabel("Date of Production");
+        textFieldDateOfProduction.setValue(String.valueOf(assets.get().getDateOfProduction()));
+        textFieldDateOfProduction.setReadOnly(true);
+        add(textFieldDateOfProduction);
+
+        // END DATE OF WARRANTY
+        TextField textFieldEndDateOfWarranty = new TextField();
+        textFieldEndDateOfWarranty.setLabel("End Date of Warranty");
+        textFieldEndDateOfWarranty.setValue(String.valueOf(assets.get().getEndDateOfWarranty()));
+        textFieldEndDateOfWarranty.setReadOnly(true);
+        add(textFieldEndDateOfWarranty);
+
+
+//        add(gridAsset);
     }
 
 }
