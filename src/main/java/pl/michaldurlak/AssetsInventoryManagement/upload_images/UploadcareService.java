@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Getter
 public class UploadcareService {
 
     public UploadcareService() {
@@ -39,6 +38,7 @@ public class UploadcareService {
     }
 
 
-
-
+    public Client getClient() {
+        return client;
+    }
 }

@@ -114,9 +114,15 @@ public class AssetManageWeb extends VerticalLayout
         textFieldEndDateOfWarranty.setReadOnly(true);
         add(textFieldEndDateOfWarranty);
 
-        // SHOW IMAGE
-        Image image = new Image(assets.get().getUrlToImage(), "No image");
-        add(image);
+        // SHOW ASSET'S IMAGE
+        Image imageAssetImage = new Image(assets.get().getUrlToImage(), "No image");
+        add(imageAssetImage);
+
+        // SHOW QR CODE IMAGE
+        System.out.println("getQrCode() -> " + assets.get().getQrCode());
+        Image imageQrCode = new Image(assets.get().getQrCode(), "No QR Code");
+        add(imageQrCode);
+
     }
 
 }

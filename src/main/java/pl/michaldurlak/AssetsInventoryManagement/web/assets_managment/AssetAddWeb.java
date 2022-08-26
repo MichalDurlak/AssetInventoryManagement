@@ -21,6 +21,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
+import pl.michaldurlak.AssetsInventoryManagement.upload_images.QRcodeService;
 import pl.michaldurlak.AssetsInventoryManagement.upload_images.UploadcareService;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
@@ -34,12 +35,14 @@ public class AssetAddWeb extends VerticalLayout {
 
     private AssetRepo assetRepo;
     private UploadcareService uploadcareService;
+    private QRcodeService qRcodeService;
 
 
     @Autowired
-    public AssetAddWeb(AssetRepo assetRepo, UploadcareService uploadcareService) {
+    public AssetAddWeb(AssetRepo assetRepo, UploadcareService uploadcareService,QRcodeService qRcodeService) {
         this.assetRepo = assetRepo;
         this.uploadcareService = uploadcareService;
+        this.qRcodeService = qRcodeService;
         getAssetAddWeb();
     }
 
@@ -56,11 +59,12 @@ public class AssetAddWeb extends VerticalLayout {
     Button buttonAdd = new Button("Add");
     Button buttonClear = new Button("Clear");
 
-    //Images
+    //Asset's Image
     FileBuffer buffer = new FileBuffer();
     Upload uploadImage = new Upload(buffer);
+    String tempUrlToImage;
 
-     String tempUrlToImage;
+
 
 
     public void getAssetAddWeb(){
@@ -96,7 +100,6 @@ public class AssetAddWeb extends VerticalLayout {
                 System.out.println("Upload failed :(");
             }
         });
-
 
 
 
@@ -142,8 +145,17 @@ public class AssetAddWeb extends VerticalLayout {
                     assetModel1.setUrlToImage(tempUrlToImage);
                 }
 
+
+
                 //Save asset to database
-                assetRepo.save(assetModel1);
+                AssetModel savedModel = assetRepo.save(assetModel1);
+
+                //QR code
+                String qrCodeUrl = qRcodeService.generateRandomQRCode(savedModel.getId());
+                savedModel.setQrCode(qrCodeUrl);
+                //save qrcode to databse for specific asset
+                assetRepo.save(savedModel);
+
 
                 //Show notification
                 Notification notification = Notification.show("Asset added: " + textFieldName.getValue());
@@ -162,6 +174,7 @@ public class AssetAddWeb extends VerticalLayout {
             dateDateOfProduction.clear();
             dateEndDateOfWarranty.clear();
             textFieldQuantityInStock.clear();
+            uploadImage.clearFileList();
         });
 
     }
