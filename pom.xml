@@ -48,6 +48,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+<!--UPLOAD PHOTOS-->
+<!-- https://mvnrepository.com/artifact/com.uploadcare/uploadcare -->
+		<dependency>
+			<groupId>com.uploadcare</groupId>
+			<artifactId>uploadcare</artifactId>
+			<version>3.5.1</version>
+		</dependency>
 
 <!--POSTGRESQL DB-->
 		<dependency>
@@ -61,6 +68,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
+<!--VAADIN sites-->
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
