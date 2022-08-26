@@ -81,7 +81,7 @@ public class UserAddWeb extends VerticalLayout {
 
         });
 
-        //Add button Clear
+        //Clear button Clicked
         buttonClear.addClickListener(clearEvent -> {
             fieldUsername.clear();
             fieldPassword.clear();
