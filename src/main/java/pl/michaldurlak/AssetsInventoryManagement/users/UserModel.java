@@ -7,6 +7,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,10 +21,11 @@ public class UserModel implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotNull
     private String username;
-    @Column(nullable = false)
+    @NotNull
     private String password;
+    @NotNull
     private UsersRoles userRole;
     private boolean isActive;
 
@@ -30,10 +33,10 @@ public class UserModel implements UserDetails {
     public UserModel() {
     }
 
-    public UserModel(String username, String password) {
-        this.userRole = UsersRoles.READ;
+    public UserModel(String username, String password,UsersRoles usersRoles) {
         this.username = username;
         this.password = password;
+        this.userRole = usersRoles;
         this.isActive = true;
     }
 
