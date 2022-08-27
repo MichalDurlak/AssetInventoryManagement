@@ -48,6 +48,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+<!--UPLOAD PHOTOS-->
+<!-- https://mvnrepository.com/artifact/com.uploadcare/uploadcare -->
+		<dependency>
+			<groupId>com.uploadcare</groupId>
+			<artifactId>uploadcare</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+
+
 
 <!--POSTGRESQL DB-->
 		<dependency>
@@ -61,6 +70,19 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!--QR CODE-->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+<!--VAADIN sites-->
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -72,7 +94,11 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+</dependencyManagement>
+
+
+
+
 
 	<build>
 		<plugins>

@@ -1,11 +1,10 @@
-package pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment;
+package pl.michaldurlak.AssetsInventoryManagement.web.assets_managment;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.michaldurlak.AssetsInventoryManagement.assets.AssetDetailsServiceImpl;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;

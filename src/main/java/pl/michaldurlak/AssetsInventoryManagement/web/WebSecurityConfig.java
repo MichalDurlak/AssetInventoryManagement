@@ -69,16 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println("--------> UZYTKOWNICY ZALOZENI <--------------");
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void createRandomAssets(){
-        AssetModel assetModel1 = new AssetModel("Only Name");
-        AssetModel assetModel2 = new AssetModel("Name","Description");
-        AssetModel assetModel3 = new AssetModel("Name","Description","Brand","Model");
-
-        assetRepo.save(assetModel1);
-        assetRepo.save(assetModel2);
-        assetRepo.save(assetModel3);
-
-        System.out.println("-------> UTWORZONO ASSETY <----------");
-    }
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void createRandomAssets(){
+//        AssetModel assetModel1 = new AssetModel("Only Name");
+//
+//        assetRepo.save(assetModel1);
+//
+//        System.out.println("-------> UTWORZONO ASSETY <----------");
+//    }
 }

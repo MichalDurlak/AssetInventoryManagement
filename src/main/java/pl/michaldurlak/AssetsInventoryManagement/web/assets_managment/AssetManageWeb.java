@@ -1,18 +1,14 @@
-package pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment;
+package pl.michaldurlak.AssetsInventoryManagement.web.assets_managment;
 
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
-import org.springframework.web.bind.annotation.*;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
-import java.util.List;
 import java.util.Optional;
 
 @Route(value = "asset" , layout = NavbarLayout.class)
@@ -118,7 +114,14 @@ public class AssetManageWeb extends VerticalLayout
         textFieldEndDateOfWarranty.setReadOnly(true);
         add(textFieldEndDateOfWarranty);
 
-        
+        // SHOW ASSET'S IMAGE
+        Image imageAssetImage = new Image(assets.get().getUrlToImage(), "No image");
+        add(imageAssetImage);
+
+        // SHOW QR CODE IMAGE
+        Image imageQrCode = new Image(assets.get().getQrCode(), "No QR Code");
+        add(imageQrCode);
+
     }
 
 }

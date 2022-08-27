@@ -1,4 +1,4 @@
-package pl.michaldurlak.AssetsInventoryManagement.web.usersManagment;
+package pl.michaldurlak.AssetsInventoryManagement.web.users_managment;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -7,7 +7,6 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.michaldurlak.AssetsInventoryManagement.users.UserDetailsServiceImpl;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserModel;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;

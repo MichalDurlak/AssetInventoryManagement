@@ -1,5 +1,10 @@
-package pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment;
+package pl.michaldurlak.AssetsInventoryManagement.web.assets_managment;
 
+import com.uploadcare.api.Client;
+import com.uploadcare.api.File;
+import com.uploadcare.upload.FileUploader;
+import com.uploadcare.upload.UploadFailureException;
+import com.uploadcare.upload.Uploader;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.H3;
@@ -9,12 +14,18 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.component.upload.receivers.FileBuffer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
+import pl.michaldurlak.AssetsInventoryManagement.upload_images.QRcodeService;
+import pl.michaldurlak.AssetsInventoryManagement.upload_images.UploadcareService;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
+
+import java.io.InputStream;
 
 @Route(value = "asset/add", layout = NavbarLayout.class)
 @PageTitle("Add new asset")
@@ -23,10 +34,15 @@ public class AssetAddWeb extends VerticalLayout {
 
 
     private AssetRepo assetRepo;
+    private UploadcareService uploadcareService;
+    private QRcodeService qRcodeService;
+
 
     @Autowired
-    public AssetAddWeb(AssetRepo assetRepo) {
+    public AssetAddWeb(AssetRepo assetRepo, UploadcareService uploadcareService,QRcodeService qRcodeService) {
         this.assetRepo = assetRepo;
+        this.uploadcareService = uploadcareService;
+        this.qRcodeService = qRcodeService;
         getAssetAddWeb();
     }
 
@@ -43,6 +59,13 @@ public class AssetAddWeb extends VerticalLayout {
     Button buttonAdd = new Button("Add");
     Button buttonClear = new Button("Clear");
 
+    //Asset's Image
+    FileBuffer buffer = new FileBuffer();
+    Upload uploadImage = new Upload(buffer);
+    String tempUrlToImage;
+
+
+
 
     public void getAssetAddWeb(){
         add(h3Title);
@@ -54,9 +77,31 @@ public class AssetAddWeb extends VerticalLayout {
         add(dateEndDateOfWarranty);
         add(textFieldQuantityInStock);
 
+        add(uploadImage);
         horizontalLayoutButtons.add(buttonAdd);
         horizontalLayoutButtons.add(buttonClear);
         add(horizontalLayoutButtons);
+
+
+
+        //Upload image
+        Client client = uploadcareService.getClient();
+        uploadImage.setAcceptedFileTypes("image/png","image/jpg","image/jpeg","image/gif");
+        uploadImage.addSucceededListener(event -> {
+            String fileName = event.getFileName();
+            InputStream inputStream = buffer.getInputStream();
+            //Uploadcare
+            Uploader uploader = new FileUploader(client,inputStream,fileName);
+            try {
+                File file = uploader.upload().save();
+                tempUrlToImage = String.valueOf(file.getOriginalFileUrl());
+//                System.out.println(file.getOriginalFileUrl());
+            } catch (UploadFailureException e) {
+//                System.out.println("Upload failed :(");
+            }
+        });
+
+
 
         //Add button Clicked
         buttonAdd.addClickListener(addEvent -> {
@@ -96,8 +141,21 @@ public class AssetAddWeb extends VerticalLayout {
                     assetModel1.setEndDateOfWarranty(String.valueOf(dateEndDateOfWarranty.getValue()));
                 }
 
+                if(tempUrlToImage == null){
+                    assetModel1.setUrlToImage(tempUrlToImage);
+                }
+
+
+
                 //Save asset to database
-                assetRepo.save(assetModel1);
+                AssetModel savedModel = assetRepo.save(assetModel1);
+
+                //QR code
+                String qrCodeUrl = qRcodeService.generateRandomQRCode(savedModel.getId());
+                savedModel.setQrCode(qrCodeUrl);
+                //save qrcode to databse for specific asset
+                assetRepo.save(savedModel);
+
 
                 //Show notification
                 Notification notification = Notification.show("Asset added: " + textFieldName.getValue());
@@ -116,6 +174,7 @@ public class AssetAddWeb extends VerticalLayout {
             dateDateOfProduction.clear();
             dateEndDateOfWarranty.clear();
             textFieldQuantityInStock.clear();
+            uploadImage.clearFileList();
         });
 
     }

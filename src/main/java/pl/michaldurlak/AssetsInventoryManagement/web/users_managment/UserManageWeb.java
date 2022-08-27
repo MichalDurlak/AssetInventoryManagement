@@ -1,4 +1,4 @@
-package pl.michaldurlak.AssetsInventoryManagement.web.usersManagment;
+package pl.michaldurlak.AssetsInventoryManagement.web.users_managment;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 

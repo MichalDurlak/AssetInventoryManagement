@@ -1,29 +1,23 @@
 package pl.michaldurlak.AssetsInventoryManagement.web.basics;
 
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import pl.michaldurlak.AssetsInventoryManagement.web.MainWeb;
-import pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment.AssetAddWeb;
-import pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment.AssetListWeb;
-import pl.michaldurlak.AssetsInventoryManagement.web.assetsManagment.AssetManageWeb;
-import pl.michaldurlak.AssetsInventoryManagement.web.usersManagment.UserAddWeb;
-import pl.michaldurlak.AssetsInventoryManagement.web.usersManagment.UserListWeb;
+import pl.michaldurlak.AssetsInventoryManagement.web.assets_managment.AssetAddWeb;
+import pl.michaldurlak.AssetsInventoryManagement.web.assets_managment.AssetListWeb;
+import pl.michaldurlak.AssetsInventoryManagement.web.assets_managment.AssetManageWeb;
+import pl.michaldurlak.AssetsInventoryManagement.web.users_managment.UserAddWeb;
+import pl.michaldurlak.AssetsInventoryManagement.web.users_managment.UserListWeb;
 
 public class NavbarLayout extends AppLayout {
 
