@@ -51,7 +51,7 @@ public class AssetManageWeb extends VerticalLayout
 
 
         buttonSearch.addClickListener(addEvent -> {
-            getSpecifyAssetManageWeb(Long.valueOf(textFieldId.getValue()));
+            getUI().get().getPage().setLocation("/asset/"+textFieldId.getValue());
         });
 
         add(textFieldId);
