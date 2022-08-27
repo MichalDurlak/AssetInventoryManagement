@@ -95,9 +95,9 @@ public class AssetAddWeb extends VerticalLayout {
             try {
                 File file = uploader.upload().save();
                 tempUrlToImage = String.valueOf(file.getOriginalFileUrl());
-                System.out.println(file.getOriginalFileUrl());
+//                System.out.println(file.getOriginalFileUrl());
             } catch (UploadFailureException e) {
-                System.out.println("Upload failed :(");
+//                System.out.println("Upload failed :(");
             }
         });
 
@@ -141,7 +141,7 @@ public class AssetAddWeb extends VerticalLayout {
                     assetModel1.setEndDateOfWarranty(String.valueOf(dateEndDateOfWarranty.getValue()));
                 }
 
-                if(!tempUrlToImage.isEmpty()){
+                if(tempUrlToImage == null){
                     assetModel1.setUrlToImage(tempUrlToImage);
                 }
 

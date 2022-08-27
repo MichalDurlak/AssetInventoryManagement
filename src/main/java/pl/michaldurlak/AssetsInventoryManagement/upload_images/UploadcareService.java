@@ -29,7 +29,7 @@ public class UploadcareService {
 //    private List<URI> published = new ArrayList<URI>();
 
 
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     private void ListOfAllUploadedImages(){
         Iterable<File> files = client.getFiles().asIterable();
         for (File file : files) {

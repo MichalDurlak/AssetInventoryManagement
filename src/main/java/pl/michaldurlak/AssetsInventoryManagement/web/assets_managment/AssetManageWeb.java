@@ -119,7 +119,6 @@ public class AssetManageWeb extends VerticalLayout
         add(imageAssetImage);
 
         // SHOW QR CODE IMAGE
-        System.out.println("getQrCode() -> " + assets.get().getQrCode());
         Image imageQrCode = new Image(assets.get().getQrCode(), "No QR Code");
         add(imageQrCode);
 

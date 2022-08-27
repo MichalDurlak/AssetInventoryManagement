@@ -64,17 +64,17 @@ public class QRcodeService {
                 Uploader uploader = new FileUploader(client,image,idAssetNumber+".png");
                 try {
                     File file = uploader.upload().save();
-                    System.out.println(file.getOriginalFileUrl());
+//                    System.out.println(file.getOriginalFileUrl());
                     finalUrlString = String.valueOf(file.getOriginalFileUrl());
                 } catch (UploadFailureException e) {
-                    System.out.println("Upload failed :(");
+//                    System.out.println("Upload failed :(");
                 }
         } catch (WriterException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
+
         return finalUrlString;
     }
 
