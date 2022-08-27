@@ -1,6 +1,9 @@
 package pl.michaldurlak.AssetsInventoryManagement.web.assets_managment;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -33,6 +36,13 @@ public class AssetListWeb extends VerticalLayout {
         gridAsset.addColumn(AssetModel::getModel).setHeader("Model");
         gridAsset.addColumn(AssetModel::getDateOfProduction).setHeader("Date Of Production");
         gridAsset.addColumn(AssetModel::getEndDateOfWarranty).setHeader("Last day of warranty");
+        gridAsset.addComponentColumn(asset -> {
+            Button editButton = new Button(new Icon(VaadinIcon.PENCIL));
+            editButton.addClickListener(buttonClickEvent -> {
+                getUI().get().getPage().setLocation("/asset/"+asset.getId());
+            });
+            return editButton;
+        }).setHeader("Edit record");
 
         List<AssetModel> assets = assetRepo.findAll();
         gridAsset.setItems(assets);

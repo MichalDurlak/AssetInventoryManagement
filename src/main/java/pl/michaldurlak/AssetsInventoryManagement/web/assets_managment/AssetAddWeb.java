@@ -67,7 +67,9 @@ public class AssetAddWeb extends VerticalLayout {
 
 
 
+
     public void getAssetAddWeb(){
+
         add(h3Title);
         add(textFieldName);
         add(textFieldDescription);
@@ -141,7 +143,7 @@ public class AssetAddWeb extends VerticalLayout {
                     assetModel1.setEndDateOfWarranty(String.valueOf(dateEndDateOfWarranty.getValue()));
                 }
 
-                if(tempUrlToImage == null){
+                if(tempUrlToImage != null){
                     assetModel1.setUrlToImage(tempUrlToImage);
                 }
 
@@ -175,6 +177,7 @@ public class AssetAddWeb extends VerticalLayout {
             dateEndDateOfWarranty.clear();
             textFieldQuantityInStock.clear();
             uploadImage.clearFileList();
+            tempUrlToImage = null;
         });
 
     }
