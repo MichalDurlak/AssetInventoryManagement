@@ -1,15 +1,18 @@
 package pl.michaldurlak.AssetsInventoryManagement.web.basics;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import pl.michaldurlak.AssetsInventoryManagement.web.MainWeb;
@@ -19,88 +22,87 @@ import pl.michaldurlak.AssetsInventoryManagement.web.assets_managment.AssetManag
 import pl.michaldurlak.AssetsInventoryManagement.web.users_managment.UserAddWeb;
 import pl.michaldurlak.AssetsInventoryManagement.web.users_managment.UserListWeb;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NavbarLayout extends AppLayout {
-
-
-    VerticalLayout tabsAll = new VerticalLayout();
-
-
-
-
+    private Map<Component, Class> mapAllTabs = new HashMap<>();
+    private Tabs tabs = new Tabs();
 
     public NavbarLayout() {
-        setAllTabs();
-        AppLayoutBasic();
-    }
-    private void AppLayoutBasic() {
-        DrawerToggle toggle = new DrawerToggle();
+        //Home section
+        addHomeMainSection();
+        //Assets section
+        addAssetsManagmentSection();
+        //Users section
+        addUsersManagmentSection();
+        //Logout button
+        addLogoutSection();
 
-        H1 title = new H1("Assets Inventory Management");
-        title.getStyle()
-                .set("font-size", "var(--lumo-font-size-l)")
-                .set("margin", "0");
-
-
-
-
-
-        addToDrawer(tabsAll);
-
-
-
-//        addToDrawer(tabsAll);
-        addToNavbar(toggle, title);
+        AppLayoutBasicNew();
     }
 
-    private void setAllTabs(){
-//START HOME SECTION
-        RouterLink routerLinkHome = new RouterLink("Home", MainWeb.class);
-        routerLinkHome.add(VaadinIcon.HOME.create());
-        tabsAll.add(routerLinkHome);
-//STOP HOME SECTION
-//START ASSET SECTION
-        Tab tabAssetManagment = new Tab(VaadinIcon.PENCIL.create(), new Span("Assets Managment"));
-        tabAssetManagment.setEnabled(false);
-        tabsAll.add(tabAssetManagment);
+    private void addNewTab(Tab newTab, Class newClass){
+        tabs.add(newTab);
+        mapAllTabs.put(newTab, newClass);
+    }
 
+
+    private void addHomeMainSection() {
+        Tab tabHome = new Tab(VaadinIcon.HOME.create(),new Label("Home"));
+        addNewTab(tabHome, MainWeb.class);
+    }
+
+    private void addAssetsManagmentSection() {
         //Asset list
-        RouterLink routerAssetList = new RouterLink("List of all assets", AssetListWeb.class);
-        tabsAll.add(routerAssetList);
-        //Asset add
-        RouterLink routerAssetAdd = new RouterLink("Add new asset", AssetAddWeb.class);
-        tabsAll.add(routerAssetAdd);
-        //Search for specific asset
-        RouterLink routerAssetSearch = new RouterLink("Search for asset", AssetManageWeb.class);
-        tabsAll.add(routerAssetSearch);
+        Tab tabAssetList = new Tab(VaadinIcon.PENCIL.create(), new Span("List of all Assets"));
+        addNewTab(tabAssetList, AssetListWeb.class);
+        //Asset add new
+        Tab tabAssetAdd = new Tab(VaadinIcon.PENCIL.create(), new Span("Add new Asset"));
+        addNewTab(tabAssetAdd, AssetAddWeb.class);
+        //Search for asset
+        Tab tabAssetSearch = new Tab(VaadinIcon.PENCIL.create(), new Span("Search for Asset"));
+        addNewTab(tabAssetSearch, AssetManageWeb.class);
+    }
 
+    private void addUsersManagmentSection() {
+        //Users list
+        Tab tabUserList = new Tab(VaadinIcon.USER.create(), new Span("List of all Users"));
+        addNewTab(tabUserList, UserListWeb.class);
+        //User add new
+        Tab tabUserAdd = new Tab(VaadinIcon.USER.create(), new Span("Add new User"));
+        addNewTab(tabUserAdd, UserAddWeb.class);
+    }
 
-//STOP ASSET SECTION
-//START USER SECTION
-        //User section
-        Tab tabUserManagment = new Tab(VaadinIcon.USER.create(), new Span("User Managment"));
-        tabUserManagment.setEnabled(false);
-
-            //User list
-        RouterLink routerUserList = new RouterLink("List of all users", UserListWeb.class);
-            //User add
-        RouterLink routerUserAdd = new RouterLink("Add new user", UserAddWeb.class);
-
-        tabsAll.add(tabUserManagment);
-        tabsAll.add(routerUserList);
-        tabsAll.add(routerUserAdd);
-//STOP USER SECTION
-
-//START LOGOUT SECTION
-
+    private void addLogoutSection() {
         Button logoutButton = new Button("Logout", VaadinIcon.SIGN_OUT.create());
         logoutButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_SMALL);
         logoutButton.addClickListener(e -> {
             VaadinSession.getCurrent().getSession().invalidate();
             UI.getCurrent().getPage().reload();
         });
-
-
-        tabsAll.add(logoutButton);
-//STOP LOGOUT SECTION
+        tabs.add(logoutButton);
     }
+
+
+
+    private void AppLayoutBasicNew() {
+        DrawerToggle toggle = new DrawerToggle();
+        H1 title = new H1("Assets Inventory Management");
+        title.getStyle()
+                .set("font-size", "var(--lumo-font-size-l)")
+                .set("margin", "0");
+
+        //If user click the menu tab forward him to specific class
+        tabs.setOrientation(Tabs.Orientation.VERTICAL);
+        tabs.addSelectedChangeListener(event -> {
+            UI.getCurrent().navigate(mapAllTabs.get(event.getSelectedTab()));
+        });
+
+        addToDrawer(tabs);
+        addToNavbar(toggle, title);
+    }
+
+
+
 }
