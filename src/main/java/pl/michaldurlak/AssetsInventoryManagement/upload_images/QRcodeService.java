@@ -12,20 +12,18 @@ import com.uploadcare.api.File;
 import com.uploadcare.upload.FileUploader;
 import com.uploadcare.upload.UploadFailureException;
 import com.uploadcare.upload.Uploader;
-import com.vaadin.flow.component.upload.Upload;
-import com.vaadin.flow.component.upload.receivers.FileBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+
 
 
 @Service
 public class QRcodeService {
+    @Value("${qrcode.website.domain}")
+    private String tempWebsite;
 
     private UploadcareService uploadcareService;
 
@@ -41,7 +39,7 @@ public class QRcodeService {
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
 
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-        MatrixToImageConfig con = new MatrixToImageConfig( 0xFF000002 , 0xFFFFC041 ) ;
+        MatrixToImageConfig con = new MatrixToImageConfig( 0xFF000002 , 0xFFFFFF ) ;
 
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream,con);
         byte[] pngData = pngOutputStream.toByteArray();
@@ -51,11 +49,11 @@ public class QRcodeService {
 
     //GENERATE + UPLOAD QR CODE (RETURN STRING URL ADDRESS)
     public String generateRandomQRCode(Long idAssetNumber) {
-        String tempWebsite = "http://localhost:8080/asset/";
+
         byte[] image;
         String finalUrlString = null;
         try {
-            image = getQRCodeImage(tempWebsite,250,250);
+            image = getQRCodeImage(tempWebsite+"/asset/"+idAssetNumber,250,250);
 
             //Upload image
             Client client = uploadcareService.getClient();

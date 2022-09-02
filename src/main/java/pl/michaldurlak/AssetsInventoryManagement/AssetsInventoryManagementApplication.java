@@ -2,6 +2,8 @@ package pl.michaldurlak.AssetsInventoryManagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,6 +11,7 @@ import pl.michaldurlak.AssetsInventoryManagement.users.UserModel;
 import pl.michaldurlak.AssetsInventoryManagement.users.UsersRoles;
 
 @SpringBootApplication
+@PropertySource("classpath:application.properties")
 public class AssetsInventoryManagementApplication {
 
 	public static void main(String[] args) {
