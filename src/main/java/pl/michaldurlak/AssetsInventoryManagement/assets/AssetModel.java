@@ -27,7 +27,7 @@ public class AssetModel {
     private String endDateOfWarranty;
     private int quantityInStock;
     private int currentlyInStock;
-    private String urlToImage;
+    private String urlToImage = "https://ucarecdn.com/1806480d-e809-45b9-ae0e-155ddcdab5cf/";
 
 
 
