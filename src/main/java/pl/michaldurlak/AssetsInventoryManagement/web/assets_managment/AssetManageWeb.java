@@ -9,10 +9,12 @@ import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
+import javax.annotation.security.PermitAll;
 import java.util.Optional;
 
 @Route(value = "asset" , layout = NavbarLayout.class)
 @PageTitle("Asset info")
+@PermitAll
 public class AssetManageWeb extends VerticalLayout
         implements HasUrlParameter<String> {
 

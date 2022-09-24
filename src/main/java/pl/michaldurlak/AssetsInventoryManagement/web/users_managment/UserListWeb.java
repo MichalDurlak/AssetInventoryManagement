@@ -13,11 +13,14 @@ import pl.michaldurlak.AssetsInventoryManagement.users.UserModel;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Locale;
 
 
 @Route(value = "user/list", layout = NavbarLayout.class)
+@PermitAll
 public class UserListWeb extends VerticalLayout {
 
     private UserRepo userRepo;

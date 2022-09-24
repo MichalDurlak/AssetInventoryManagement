@@ -20,8 +20,14 @@ import pl.michaldurlak.AssetsInventoryManagement.users.UserRepo;
 import pl.michaldurlak.AssetsInventoryManagement.users.UsersRoles;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+
+import static pl.michaldurlak.AssetsInventoryManagement.users.UsersRoles.*;
+
 @Route(value = "user/add", layout = NavbarLayout.class)
 @PageTitle("Add User")
+@PermitAll
 public class UserAddWeb extends VerticalLayout {
 
 
@@ -47,9 +53,9 @@ public class UserAddWeb extends VerticalLayout {
 
         //List of all roles
         ComboBox<UsersRoles> comboBoxUserRole = new ComboBox<>("User's Role");
-        comboBoxUserRole.setItems(UsersRoles.values());
+        comboBoxUserRole.setItems(values());
         comboBoxUserRole.setItemLabelGenerator(UsersRoles::name);
-        comboBoxUserRole.setValue(UsersRoles.READ);
+        comboBoxUserRole.setValue(READ);
 
 
         //Buttons
@@ -65,7 +71,7 @@ public class UserAddWeb extends VerticalLayout {
             //Check if user exist
             if (userRepo.findByUsername(fieldUsername.getValue()) == null) {
                 //Get data from forms
-                UserModel newUser = new UserModel(fieldUsername.getValue(), passwordEncoder().encode(fieldPassword.getValue()),comboBoxUserRole.getValue());
+                UserModel newUser = new UserModel(fieldUsername.getValue(), passwordEncoder().encode(fieldPassword.getValue()), "ADMIN");
                 //Save user to database
                 userRepo.save(newUser);
                 //Show success message

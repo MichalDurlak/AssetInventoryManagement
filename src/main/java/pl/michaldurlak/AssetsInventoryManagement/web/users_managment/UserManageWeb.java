@@ -13,10 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserModel;
 import pl.michaldurlak.AssetsInventoryManagement.users.UserRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
+
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @Route(value = "user/manage" , layout = NavbarLayout.class)
 @PageTitle("User settings")
+@PermitAll
 public class UserManageWeb extends VerticalLayout
         implements HasUrlParameter<String> {
 

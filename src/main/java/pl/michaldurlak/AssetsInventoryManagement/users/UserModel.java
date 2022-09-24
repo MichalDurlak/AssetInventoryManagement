@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Setter
@@ -25,24 +26,25 @@ public class UserModel implements UserDetails {
     private String username;
     @NotNull
     private String password;
-    @NotNull
-    private UsersRoles userRole;
+
+    private String userRole = "admin";
     private boolean isActive;
 
 
     public UserModel() {
     }
 
-    public UserModel(String username, String password,UsersRoles usersRoles) {
+    public UserModel(String username, String password,String usersRoles) {
         this.username = username;
         this.password = password;
-        this.userRole = usersRoles;
+        this.userRole = "admin";
         this.isActive = true;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(userRole.toString()));
+        return List.of( new SimpleGrantedAuthority("admin"));
+//        return Collections.singleton(new SimpleGrantedAuthority(userRole));
     }
 
     @Override
@@ -75,5 +77,14 @@ public class UserModel implements UserDetails {
         return isActive;
     }
 
-
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userRole='" + userRole + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

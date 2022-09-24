@@ -1,7 +1,7 @@
 package pl.michaldurlak.AssetsInventoryManagement.users;
 
 public enum UsersRoles {
-    ADMIN,
+    admin,
     READ,
     WRITE_READ;
 

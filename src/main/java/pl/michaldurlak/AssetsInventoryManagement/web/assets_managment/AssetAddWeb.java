@@ -25,10 +25,12 @@ import pl.michaldurlak.AssetsInventoryManagement.upload_images.QRcodeService;
 import pl.michaldurlak.AssetsInventoryManagement.upload_images.UploadcareService;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
+import javax.annotation.security.PermitAll;
 import java.io.InputStream;
 
 @Route(value = "asset/add", layout = NavbarLayout.class)
 @PageTitle("Add new asset")
+@PermitAll
 public class AssetAddWeb extends VerticalLayout {
 
 

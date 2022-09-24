@@ -12,10 +12,12 @@ import pl.michaldurlak.AssetsInventoryManagement.assets.AssetModel;
 import pl.michaldurlak.AssetsInventoryManagement.assets.AssetRepo;
 import pl.michaldurlak.AssetsInventoryManagement.web.basics.NavbarLayout;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 @Route(value = "asset/list", layout = NavbarLayout.class)
 @PageTitle("List of all assets")
+@PermitAll
 public class AssetListWeb extends VerticalLayout {
 
     @Autowired
